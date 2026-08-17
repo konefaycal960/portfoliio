@@ -267,7 +267,10 @@
               </div>
             </div>
 
-            <form id="contactForm" class="contact-form glass" data-reveal novalidate data-netlify="false" data-netlify-recaptcha="false">
+            <!-- Hidden form for Netlify detection at deploy -->
+            <form name="contact" netlify hidden><input name="bot-field"></form>
+
+            <form id="contactForm" class="contact-form glass" data-reveal novalidate>
               <label class="mono" data-i18n="form_name" for="cf-name">NOM</label>
               <input id="cf-name" name="name" type="text" data-i18n-placeholder="ph_name" placeholder="Ton nom" autocomplete="name" required>
 

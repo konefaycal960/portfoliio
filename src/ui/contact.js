@@ -2,9 +2,8 @@ import { SITE_DATA } from '../data';
 import { getLang, getUi } from '../core/i18n';
 
 /* ============================================================================
-   CONTACT FORM — envoi réel (endpoint configurable via VITE_CONTACT_ENDPOINT,
-   FormSubmit.co par défaut), validation client, états sending/success/error.
-   Repli automatique sur mailto si aucun endpoint.
+   CONTACT FORM — Netlify Forms (détection par formulaire caché dans index.html),
+   validation client, états sending/success/error.
    ============================================================================ */
 
 export function initContactForm() {
@@ -19,7 +18,6 @@ export function initContactForm() {
     message: form.querySelector('[name="message"]'),
   };
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT || `https://formsubmit.co/ajax/${SITE_DATA.profile.email}`;
 
   function setStatus(msg, ok) {
     if (!status) return;
@@ -40,15 +38,6 @@ export function initContactForm() {
     return { ok: okName && okEmail && okMsg, firstInvalid };
   }
 
-  function mailtoFallback() {
-    const name = fields.name.value.trim();
-    const email = fields.email.value.trim();
-    const message = fields.message.value.trim();
-    const subject = encodeURIComponent(`Contact portfolio — ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:${SITE_DATA.profile.email}?subject=${subject}&body=${body}`;
-  }
-
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     setStatus('');
@@ -59,10 +48,6 @@ export function initContactForm() {
       if (v.firstInvalid) v.firstInvalid.focus();
       return;
     }
-    if (!endpoint) {
-      mailtoFallback();
-      return;
-    }
 
     const ui = getUi(getLang());
     const original = submit.textContent;
@@ -70,22 +55,19 @@ export function initContactForm() {
     submit.textContent = ui.form_sending;
 
     try {
-      const res = await fetch(endpoint, {
+      const body = new URLSearchParams();
+      body.append('form-name', 'contact');
+      body.append('name', fields.name.value.trim());
+      body.append('email', fields.email.value.trim());
+      body.append('message', fields.message.value.trim());
+
+      const res = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          name: fields.name.value.trim(),
-          email: fields.email.value.trim(),
-          message: fields.message.value.trim(),
-          _subject: `Portfolio — ${fields.name.value.trim()}`,
-          _template: 'table',
-          _captcha: false,
-        }),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || data.success === 'false') {
-        throw new Error(data.message || 'request failed');
-      }
+
+      if (!res.ok) throw new Error('request failed');
       setStatus(ui.form_success, true);
       form.reset();
     } catch {
