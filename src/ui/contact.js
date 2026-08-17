@@ -79,9 +79,13 @@ export function initContactForm() {
           message: fields.message.value.trim(),
           _subject: `Portfolio — ${fields.name.value.trim()}`,
           _template: 'table',
+          _captcha: false,
         }),
       });
-      if (!res.ok) throw new Error('request failed');
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === 'false') {
+        throw new Error(data.message || 'request failed');
+      }
       setStatus(ui.form_success, true);
       form.reset();
     } catch {
