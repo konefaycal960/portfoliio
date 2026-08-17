@@ -1,0 +1,18 @@
+{
+  "name": "Fayçal Koné — Full-Stack Web & Mobile Developer",
+  "short_name": "Fayçal.dev",
+  "description": "Portfolio de Fayçal Koné, développeur full-stack web & mobile basé à Bobo-Dioulasso, Burkina Faso.",
+  "lang": "fr",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0916",
+  "theme_color": "#6c5ce7",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

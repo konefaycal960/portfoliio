@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0916"/>
+      <stop offset="1" stop-color="#171033"/>
+    </linearGradient>
+    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6c5ce7"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1030" cy="170" r="220" fill="none" stroke="#6c5ce7" stroke-width="2" opacity="0.5"/>
+  <circle cx="1030" cy="170" r="140" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.5"/>
+  <circle cx="1030" cy="170" r="60" fill="none" stroke="#f5c067" stroke-width="2" opacity="0.5"/>
+  <text x="90" y="130" font-family="Arial, sans-serif" font-size="26" letter-spacing="8" fill="#a79fd0">FAYÇAL.DEV</text>
+  <text x="90" y="340" font-family="Arial, sans-serif" font-weight="bold" font-size="72" fill="#f4f1ff">Fayçal Koné</text>
+  <text x="92" y="410" font-family="Arial, sans-serif" font-size="32" fill="#bdb6dd">Développeur Full-Stack · Web &amp; Mobile</text>
+  <text x="92" y="455" font-family="Arial, sans-serif" font-size="22" fill="#8a87a8">Python · JavaScript/TypeScript · Dart — Bobo-Dioulasso, Burkina Faso</text>
+  <rect x="90" y="500" width="140" height="5" rx="2.5" fill="url(#ac)"/>
+</svg>

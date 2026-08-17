@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fayçal Koné — Développeur Full-Stack Web & Mobile</title>
+  <meta name="description" content="Fayçal Koné, développeur full-stack web & mobile (Python, JavaScript/TypeScript, Dart) basé à Bobo-Dioulasso, Burkina Faso. Sites web, applications mobiles, APIs, paiement Mobile Money.">
+  <meta name="theme-color" content="#06060E">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://faycal.dev/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faycal.dev/">
+  <meta property="og:title" content="Fayçal Koné — Développeur Full-Stack Web & Mobile">
+  <meta property="og:description" content="Portfolio 3D immersif — sites web, applications mobiles, APIs & paiement Mobile Money.">
+  <meta property="og:image" content="https://faycal.dev/og-cover.svg">
+  <meta property="og:locale" content="fr_FR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fayçal Koné — Développeur Full-Stack Web & Mobile">
+  <meta name="twitter:description" content="Portfolio 3D immersif — sites web, applications mobiles, APIs & paiement Mobile Money.">
+  <meta name="twitter:image" content="https://faycal.dev/og-cover.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- ============ LOADING ============ -->
+  <div id="loader" role="status" aria-label="Chargement de l'expérience">
+    <div class="loader-inner">
+      <div id="loaderRing" class="loader-ring"><span></span></div>
+      <div class="loader-brand">Fayçal<span>.</span>dev</div>
+      <div class="loader-track"><div id="loaderBar"></div></div>
+      <div id="loaderPct" class="loader-pct">0%</div>
+      <div id="loaderLabel" class="loader-label">INITIALIZING EXPERIENCE…</div>
+    </div>
+  </div>
+
+  <!-- ============ CURSOR ============ -->
+  <div id="cursorDot" aria-hidden="true"></div>
+  <div id="cursorRing" aria-hidden="true">VIEW</div>
+
+  <!-- ============ SCÈNE 3D (fond fixe) ============ -->
+  <canvas id="sceneCanvas" aria-hidden="true"></canvas>
+
+  <!-- ============ BARRE DE PROGRESSION ============ -->
+  <div id="progressBar" aria-hidden="true"></div>
+
+  <!-- ============ NAV ============ -->
+  <nav id="navbar" aria-label="Navigation principale">
+    <div class="nav-inner wrap">
+      <a href="#hero" class="brand" data-hover><span class="brand-mark"></span><span id="brandName">Fayçal.dev</span></a>
+
+      <div class="navlinks">
+        <a href="#about" data-i18n="nav_about" data-hover>À propos</a>
+        <a href="#skills" data-i18n="nav_skills" data-hover>Compétences</a>
+        <a href="#lab" data-i18n="nav_lab" data-hover>3D Lab</a>
+        <a href="#projects" data-i18n="nav_projects" data-hover>Projets</a>
+        <a href="#contact" data-i18n="nav_contact" data-hover>Contact</a>
+      </div>
+
+      <a href="#contact" class="nav-cta magnet" data-i18n="nav_cta" data-hover>DISPONIBLE →</a>
+
+      <div class="nav-lang" data-lang-switcher>
+        <button type="button" class="lang-btn mono" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Changer de langue">
+          <span id="langCurrent">FR</span><span class="lang-caret">▾</span>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu"></div>
+      </div>
+
+      <button id="menuToggle" class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============ MENU MOBILE ============ -->
+  <div id="menu" aria-hidden="true">
+    <div class="menu-inner wrap">
+      <a href="#about" data-i18n="nav_about" data-hover style="--d:.05s">À propos</a>
+      <a href="#skills" data-i18n="nav_skills" data-hover style="--d:.12s">Compétences</a>
+      <a href="#lab" data-i18n="nav_lab" data-hover style="--d:.19s">3D Lab</a>
+      <a href="#projects" data-i18n="nav_projects" data-hover style="--d:.26s">Projets</a>
+      <a href="#contact" data-i18n="nav_contact" data-hover style="--d:.33s">Contact</a>
+      <a href="#contact" class="menu-cta" data-i18n="nav_cta" data-hover style="--d:.4s">DISPONIBLE →</a>
+      <div class="lang-mobile" data-lang-mobile></div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL PROJET ============ -->
+  <div id="projectModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Détail du projet">
+    <button class="modal-close" aria-label="Fermer">&times;</button>
+    <div class="modal-card glass-strong">
+      <span class="modal-index">PROJET 01</span>
+      <span class="badge live">STATUS</span>
+      <h3 class="modal-title">Nom</h3>
+      <img class="modal-img" alt="">
+      <p class="modal-desc">Description</p>
+      <div class="modal-result"></div>
+      <div class="modal-role mono">Rôle</div>
+      <div class="modal-stack-line"><span class="mono">STACK</span><b class="modal-stack"></b></div>
+      <div class="modal-links"></div>
+    </div>
+  </div>
+
+  <!-- ============ CONTENU ============ -->
+  <div id="viewport">
+    <div id="smooth">
+
+      <!-- ============ HERO ============ -->
+      <header id="hero" class="hero" data-scene>
+        <div class="wrap hero-grid">
+          <div>
+            <div class="eyebrow reveal" data-i18n="hero_eyebrow" style="--d:.05s">DÉVELOPPEUR FULL-STACK · SITES WEB & APPLICATIONS MOBILES · BOBO-DIOULASSO, BURKINA FASO</div>
+            <h1 class="name reveal" id="heroName" style="--d:.15s">Fayçal <span>Koné</span></h1>
+            <div class="hero-split reveal" style="--d:.22s" aria-label="Domaines">
+              <span class="split-item split-web" data-i18n="hero_splitWeb">SITES WEB</span>
+              <span class="split-item split-mobile" data-i18n="hero_splitMobile">APPS MOBILES</span>
+            </div>
+            <div class="hero-status reveal" style="--d:.3s"><span data-i18n="hero_status">DISPONIBLE · FREELANCE · STAGE</span></div>
+            <p class="role reveal" data-i18n="hero_role" style="--d:.38s">Je développe des sites web et des applications mobiles complètes, dans plusieurs langages, du backend jusqu'à l'interface — pour des marchés locaux comme internationaux.</p>
+            <div class="capacities reveal" id="capacities" style="--d:.48s"></div>
+            <div class="hero-cta reveal" style="--d:.58s">
+              <a href="#projects" class="btn btn-primary magnet" data-i18n="cta_projects" data-hover>Voir mes réalisations</a>
+              <a href="#contact" class="btn btn-ghost magnet" data-i18n="cta_contact" data-hover>Me contacter</a>
+              <button type="button" class="btn btn-ghost magnet" data-cv data-i18n="cv_download" data-hover>TÉLÉCHARGER LE CV</button>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-hint" aria-hidden="true">
+          <span class="mono" data-i18n="scroll">SCROLL</span>
+          <span class="scroll-line"></span>
+        </div>
+      </header>
+
+      <!-- ============ À PROPOS ============ -->
+      <section id="about" class="about" data-scene>
+        <div class="wrap">
+          <span class="section-tag" data-i18n="sec_about" data-reveal>01 — À PROPOS</span>
+          <h2 class="section-title" data-i18n="title_about" data-reveal>Un développeur qui construit pour de vrais usages.</h2>
+
+          <div class="about-grid">
+            <div class="about-visual" data-reveal aria-hidden="true">
+              <div class="av-core"><img class="av-photo" id="avPhoto" alt="" /><span></span></div>
+              <div class="av-word w1"><span data-depth="1.6">DEVELOPER</span></div>
+              <div class="av-word w2"><span data-depth="1.1">CREATIVE</span></div>
+              <div class="av-word w3"><span data-depth="2.0">PROBLEM SOLVER</span></div>
+              <div class="av-word w4"><span data-depth="1.3">AI</span></div>
+              <div class="av-word w5"><span data-depth="1.8">WEB</span></div>
+              <div class="av-word w6"><span data-depth="1.4">MOBILE</span></div>
+            </div>
+
+            <div class="about-side" data-reveal>
+              <div class="about-text glass">
+                <p data-i18n-html data-i18n="about_p1">Étudiant en 3<sup>e</sup> année d'<strong>Informatique de Gestion</strong> à l'Université de l'Unité Africaine (Bobo-Dioulasso), je développe seul des applications complètes — web et mobile — en travaillant sur plusieurs langages et environnements techniques : Python, JavaScript/TypeScript, Dart.</p>
+                <p data-i18n="about_p2">J'ai conçu et livré des plateformes de bout en bout : alertes communautaires de coupures d'électricité et d'eau, génération de QR codes dynamiques, intégration de paiement Mobile Money, gestion de rendez-vous médicaux. Je prépare actuellement ma soutenance de mémoire et j'explore des opportunités entrepreneuriales dans le logiciel et l'e-commerce.</p>
+                <p data-i18n="about_p3">Je cherche aujourd'hui à porter ce travail au-delà du marché local — en mission freelance, en poste salarié ou en stage à l'international.</p>
+              </div>
+              <div class="facts glass">
+                <div class="fact-row"><span class="fact-label" data-i18n="facts.0.0">FORMATION</span><span data-i18n="facts.0.1">Informatique de Gestion — 3ᵉ année</span></div>
+                <div class="fact-row"><span class="fact-label" data-i18n="facts.1.0">BASE</span><span data-i18n="facts.1.1">Bobo-Dioulasso, Burkina Faso</span></div>
+                <div class="fact-row"><span class="fact-label" data-i18n="facts.2.0">DOMAINES</span><span data-i18n="facts.2.1">Sites web · Apps mobiles · Backend/API</span></div>
+                <div class="fact-row"><span class="fact-label" data-i18n="facts.3.0">DISPONIBILITÉ</span><span data-i18n="facts.3.1">Freelance · CDI · Stage</span></div>
+                <div class="fact-row"><span class="fact-label" data-i18n="facts.4.0">LANGUE</span><span data-i18n="facts.4.1">Français (natif) · Anglais technique</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ COMPÉTENCES ============ -->
+      <section id="skills" class="skills" data-scene>
+        <div class="wrap">
+          <span class="section-tag" data-i18n="sec_skills" data-reveal>02 — COMPÉTENCES</span>
+          <h2 class="section-title" data-i18n="title_skills" data-reveal>Plusieurs langages, une seule logique : livrer.</h2>
+
+          <div class="skills-layout">
+            <div class="skill-detail glass" data-reveal>
+              <div class="skill-detail-head">
+                <span class="mono" id="skillCat">BACKEND</span>
+                <span class="mono skill-level" id="skillLevel">90%</span>
+              </div>
+              <h3 id="skillName">Django / DRF</h3>
+              <div class="bar"><div id="skillBar" class="bar-fill"></div></div>
+              <p id="skillBlurb">Compétence.</p>
+              <div class="skill-hint mono" data-i18n="skillHint">SURVOLE LES TECHNOLOGIES DANS L'ESPACE OU CLIQUE UN CHIP.</div>
+            </div>
+
+            <div class="skill-chips" id="skillChips" data-reveal></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 3D LAB ============ -->
+      <section id="lab" class="lab" data-scene>
+        <div class="wrap">
+          <span class="section-tag" data-i18n="sec_lab" data-reveal>03 — 3D LAB</span>
+          <h2 class="section-title" data-i18n="title_lab" data-reveal>Des expériences que tu peux manipuler.</h2>
+
+          <div class="lab-tabs" role="tablist" aria-label="Expériences 3D" data-reveal>
+            <button type="button" class="lab-tab active" data-i18n="tab_particle" data-hover role="tab" aria-selected="true">PARTICLE SPHERE</button>
+            <button type="button" class="lab-tab" data-i18n="tab_neural" data-hover role="tab" aria-selected="false">NEURAL NET</button>
+            <button type="button" class="lab-tab" data-i18n="tab_code" data-hover role="tab" aria-selected="false">CODE SPACE</button>
+            <button type="button" class="lab-tab" data-i18n="tab_arch" data-hover role="tab" aria-selected="false">ARCHITECTURE</button>
+          </div>
+
+          <div class="lab-stage" data-reveal>
+            <div class="lab-panel glass">
+              <div id="labInfoTitle" class="lab-info-title"></div>
+              <div id="labInfoBody" class="lab-info-body"></div>
+              <div id="labHint" class="lab-hint mono" data-i18n="labHint">Survole les éléments 3D pour interagir.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ RÉALISATIONS ============ -->
+      <section id="achievements" class="achievements">
+        <div class="wrap">
+          <span class="section-tag" data-i18n="sec_ach" data-reveal>04 — RÉALISATIONS</span>
+          <h2 class="section-title" data-i18n="title_ach" data-reveal>Ce que j'ai déjà livré.</h2>
+          <div class="ach-list" id="achList"></div>
+        </div>
+      </section>
+
+      <!-- ============ PROJETS ============ -->
+      <section id="projects" class="projects" data-scene>
+        <div class="wrap">
+          <span class="section-tag" data-i18n="sec_projects" data-reveal>05 — PROJETS</span>
+          <h2 class="section-title" data-i18n="title_projects" data-reveal>Des sites web et des applications mobiles, de bout en bout.</h2>
+          <div class="projects-rail">
+            <button class="rail-btn rail-prev" aria-label="Précédent">←</button>
+            <div class="projects-track" id="projectsGrid"></div>
+            <button class="rail-btn rail-next" aria-label="Suivant">→</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ TÉMOIGNAGES ============ -->
+      <section id="testimonials" class="testimonials">
+        <div class="wrap">
+          <span class="section-tag" data-i18n="sec_testi" data-reveal>06 — TÉMOIGNAGES</span>
+          <h2 class="section-title" data-i18n="title_testi" data-reveal>Des clients satisfaits, des sites qui tournent.</h2>
+          <div class="t-grid" id="testimonialsGrid"></div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACT ============ -->
+      <footer id="contact" class="contact" data-scene>
+        <div class="wrap">
+          <span class="section-tag" data-i18n="sec_contact" data-reveal>07 — CONTACT</span>
+          <h2 class="contact-title" data-i18n-html data-i18n="title_contact" data-reveal>On construit quelque chose <span>ensemble</span> ?</h2>
+
+          <div class="contact-grid">
+            <div class="contact-info" data-reveal>
+              <p data-i18n="contact_intro">Disponible pour une mission freelance, un poste salarié ou un stage. Écris-moi directement — je réponds en général sous 24&nbsp;h.</p>
+              <div class="contact-links">
+                <a id="linkEmail" href="mailto:faycalkone960@icloud.com" class="btn btn-primary magnet" data-hover><span class="mono">✉</span> <span id="contactEmail">faycalkone960@icloud.com</span></a>
+                <a id="linkLinkedin" href="" target="_blank" rel="noopener" class="btn btn-ghost magnet" data-hover>LinkedIn ↗</a>
+                <a id="linkGithub" href="https://github.com/konefaycal960" target="_blank" rel="noopener" class="btn btn-ghost magnet" data-hover>GitHub ↗</a>
+                <a id="linkPhone" href="tel:+22654159787" class="btn btn-ghost magnet" data-hover><span id="contactPhone">+226 54 15 97 87</span></a>
+                <button type="button" class="btn btn-ghost magnet" data-cv data-i18n="cv_download" data-hover>TÉLÉCHARGER LE CV</button>
+              </div>
+            </div>
+
+            <form id="contactForm" class="contact-form glass" data-reveal novalidate>
+              <label class="mono" data-i18n="form_name" for="cf-name">NOM</label>
+              <input id="cf-name" name="name" type="text" data-i18n-placeholder="ph_name" placeholder="Ton nom" autocomplete="name" required>
+
+              <label class="mono" data-i18n="form_email" for="cf-email">EMAIL</label>
+              <input id="cf-email" name="email" type="email" data-i18n-placeholder="ph_email" placeholder="ton@email.com" autocomplete="email" required>
+
+              <label class="mono" data-i18n="form_message" for="cf-message">MESSAGE</label>
+              <textarea id="cf-message" name="message" rows="4" data-i18n-placeholder="ph_message" placeholder="Décris ton projet…" required></textarea>
+
+              <button type="submit" class="btn btn-primary magnet" data-i18n="submit" data-hover>ENVOYER LE MESSAGE →</button>
+              <span id="formStatus" class="form-status" role="status"></span>
+              <span class="form-note mono" data-i18n="note">Ouvre ton client mail préféré.</span>
+            </form>
+          </div>
+
+          <div class="foot-bottom">
+            <span data-i18n="foot_l">© 2026 Fayçal Koné — Bobo-Dioulasso, Burkina Faso</span>
+            <span data-i18n="foot_r">DERNIÈRE MISE À JOUR: AOÛT 2026</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
